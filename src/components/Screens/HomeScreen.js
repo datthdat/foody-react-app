@@ -4,7 +4,8 @@ import { Button } from 'antd';
 import Slider from '../Slider/Slider'
 import Content from '../Content/Content'
 
-const HomeScreen = ({ products, addToCart, loadMore, cartItems, onAdd, setLoadMore }) => {
+const HomeScreen = (props) => {
+    const { products, addToCart, loadMore, cartItems, onAdd, setLoadMore } = props
     const HideAndShow = () => (products.length > loadMore ? (
         <div className="flex justify-center">
             <Button

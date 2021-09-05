@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom'
 import {
     GlassMagnifier
 } from 'react-image-magnifiers';
-const ProductDetail = ({ data, addToCart }) => {
+const ProductDetail = (props) => {
+    const { data, onAdd } = props
     const { productId } = useParams();
     const result = data.find((prop) => prop.id === productId)
     const [imageProduct, setImageProduct] = useState('')
@@ -107,7 +108,7 @@ const ProductDetail = ({ data, addToCart }) => {
                         <div className="flex">
                             <span className="title-font font-medium text-2xl text-gray-900">${result.price} </span>
                             <button
-                                onClick={() => addToCart(result)}
+                                onClick={() => onAdd(result)}
                                 className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
                                 Add To Cart
                             </button>

@@ -37,21 +37,34 @@ const App = () => {
     }
   }, [cart])
 
-  const addToCart = deCart => {
-    setCart([...cart, deCart]);
-    // localStorage.setItem('cart', JSON.stringify(cart));
-  };
+  // const addToCart = deCart => {
+  // setCart([...cart, deCart]);
+  // localStorage.setItem('cart', JSON.stringify(cart));
+  // };
   // const dataCart = JSON.parse(localStorage.getItem('cart'));
+
   const [cartItems, setCartItems] = useState([])
   const onAdd = (product) => {
-    const exits = cartItems.find(item => item.id === product.id);
+    const exits = cartItems.find((item) => item.id === product.id);
     if (exits) {
-      setCartItems(cartItems.map(item => item.id === product.id ? { ...exits, qty: exits.qty + 1 } : item))
+      setCartItems(cartItems.map((item) => item.id === product.id ? { ...exits, qty: exits.qty + 1 } : item))
     } else {
       setCartItems([...cartItems, { ...product, qty: 1 }])
     }
   }
-  console.log("cartItems", cartItems);
+  console.log("onAdd", cartItems);
+
+  const onRemove = (product) => {
+    const exits = cartItems.find((item) => item.id === product.id);
+    if (exits.qty === 1) {
+      setCartItems(cartItems.filter((item) => item.id !== product.id))
+    } else {
+      setCartItems(cartItems.map(item => (item).id === product.id ? { ...exits, qty: exits.qty - 1 } : item))
+    }
+    console.log("exits.qty", exits.qty);
+  }
+  console.log("onRemove", cartItems);
+
 
   return (
     <Router>
@@ -69,10 +82,14 @@ const App = () => {
             />
           </Route>
           <Route exact path='/cart'>
-            <Cart cart={cartItems} />
+            <Cart
+              onRemove={onRemove}
+              onAdd={onAdd}
+              cart={cartItems} />
           </Route>
           <Route path='/all-products'>
             <ProductsScreen
+              onAdd={onAdd}
               products={dataProduct}
               loadMore={loadMore}
               // // addToCart={addToCart}
@@ -82,6 +99,7 @@ const App = () => {
           <Route path="/products/:productId">
             <ProductDetail
               // addToCart={addToCart}
+              onAdd={onAdd}
               data={dataProduct}
             />
           </Route>

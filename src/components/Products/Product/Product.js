@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-const Product = ({ product, addToCart, onAdd }) => {
+const Product = (props) => {
+    const { product, onAdd } = props
     const [imageProduct, setImageProduct] = useState('')
     return (
         <div className="bg-whit w-72 bg-white rounded-xl shadow-lg hover:shadow-xl transform duration-500 mx-auto md:mx-0 py-4 px-4">

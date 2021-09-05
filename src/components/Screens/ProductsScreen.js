@@ -4,7 +4,8 @@ import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
 import Sticky from 'react-stickynode';
 import { Input } from 'antd';
-const ProductsScreen = ({ setLoadMore, products, addToCart, loadMore }) => {
+const ProductsScreen = (props) => {
+    const { setLoadMore, products, loadMore, onAdd } = props
     const PageProduct = window.location.pathname
     const [search, setSearch] = useState('')
     const filterData = products.filter(items => items.name.toLowerCase().includes(search))
@@ -62,7 +63,7 @@ const ProductsScreen = ({ setLoadMore, products, addToCart, loadMore }) => {
                 <div className="flex justify-center">
                     <Products
                         products={filterData}
-                        addToCart={addToCart}
+                        onAdd={onAdd}
                         setLoadMore={setLoadMore}
                         loadMore={loadMore}
                         PageProduct={PageProduct}
