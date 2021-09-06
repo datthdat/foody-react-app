@@ -5,27 +5,28 @@ import Slider from '../Slider/Slider'
 import Content from '../Content/Content'
 
 const HomeScreen = (props) => {
-    const { products, addToCart, loadMore, cartItems, onAdd, setLoadMore } = props
-    const HideAndShow = () => (products.length > loadMore ? (
-        <div className="flex justify-center">
-            <Button
-                onClick={() => setLoadMore(loadMore + 10)}
-                className="rounded-lg py-2 px-4 border hover:bg-green-400 bg-white transition duration-200 ease-in-out"
-                type="primary">
-                Show More <i className="fas fa-angle-down" />
-            </Button>
+    const { products, addToCart, loadMore, cartItems, onAdd, setLoadMore, loadMoreProduct } = props
+    // const HideAndShow = () => (products.length > loadMore ? (
+    //     <div className="flex justify-center">
+    //         <Button
+    //             onClick={() => setLoadMore(loadMore + 10)}
+    //             className="rounded-lg py-2 px-4 border hover:bg-green-400 bg-white transition duration-200 ease-in-out"
+    //             type="primary">
+    //             Show More <i className="fas fa-angle-down" />
+    //         </Button>
 
-        </div>
-    ) : (
-        <div className="flex justify-center">
-            <Button
-                onClick={() => setLoadMore(9)}
-                className=" rounded-lg py-2 px-4 border hover:bg-green-400 bg-white-400  transition duration-200 ease-in-out"
-                type="primary">
-                Hide More <i className="fas fa-chevron-up" />
-            </Button>
-        </div>
-    ))
+    //     </div>
+    // ) : (
+    //     <div className="flex justify-center">
+    //         <Button
+    //             onClick={() => setLoadMore(9)}
+    //             className=" rounded-lg py-2 px-4 border hover:bg-green-400 bg-white-400  transition duration-200 ease-in-out"
+    //             type="primary">
+    //             Hide More <i className="fas fa-chevron-up" />
+    //         </Button>
+    //     </div>
+    // ))
+
     return (
         <>
             <div>
@@ -39,6 +40,7 @@ const HomeScreen = (props) => {
             <div className="grid justify-center">
                 <div className="flex justify-center">
                     <Products
+                        loadMoreProduct={loadMoreProduct}
                         cartItems={cartItems}
                         onAdd={onAdd}
                         setLoadMore={setLoadMore} products={products} addToCart={addToCart} loadMore={loadMore} />

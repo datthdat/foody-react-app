@@ -9,7 +9,6 @@ const ProductsScreen = (props) => {
     const PageProduct = window.location.pathname
     const [search, setSearch] = useState('')
     const filterData = products.filter(items => items.name.toLowerCase().includes(search))
-    const Page = window.location.pathname
     return (
         <div className="flex justify-center container mx-auto px-10 bg-gray-300">
             <div className="w-1/5" >
@@ -67,7 +66,6 @@ const ProductsScreen = (props) => {
                         setLoadMore={setLoadMore}
                         loadMore={loadMore}
                         PageProduct={PageProduct}
-                        Page={Page}
                     />
                 </div>
             </div>

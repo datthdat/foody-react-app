@@ -8,13 +8,13 @@ import axios from 'axios'
 import { Navbar, Footer, Cart, ProductDetail, HomeScreen, ProductsScreen } from './components'
 import "antd/dist/antd.css";
 import data from './data.json'
-require('dotenv').config()
 const App = () => {
   // const [data, setData] = useState('')
   // const [error, setError] = useState(null);
   // const [type, setType] = useState('chocolates')
+  const [allData, setAllData] = useState(data)
   const [cart, setCart] = useState([])
-  const [loadMore, setLoadMore] = useState(9)
+  const [loadMore, setLoadMore] = useState(12)
   const dataProduct = data?.chocolates
   // useEffect(() => {
   //   axios(`http://localhost:3001/chocolates`)
@@ -27,15 +27,15 @@ const App = () => {
   //     })
   // }, [])
 
-  useEffect(() => {
-    {
-      cart.length > 0 ? (
-        (document.title = `${cart.length} product`)
-      ) : (
-        (document.title = `Dami-Vie`)
-      )
-    }
-  }, [cart])
+  const loadMoreProduct = () => {
+    setLoadMore(allData.length)
+  }
+
+
+
+  // useEffect(() => {
+  //   alert("title")
+  // }, [cart])
 
   // const addToCart = deCart => {
   // setCart([...cart, deCart]);
@@ -65,6 +65,24 @@ const App = () => {
   }
   console.log("onRemove", cartItems);
 
+  // const cartPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0)
+  const total = 0;
+  const totalPrice = (a, c) => {
+    return a + c.price * c.qty
+  }
+  const TotalPrice = cartItems.reduce(totalPrice, total)
+  // console.log("TotalPrice", TotalPrice)
+
+  useEffect(() => {
+    {
+      cartItems.length > 0 ? (
+        (document.title = `${cartItems.length} product`)
+      ) : (
+        (document.title = `Dami-Vie`)
+      )
+    }
+  }, [cartItems])
+
 
   return (
     <Router>
@@ -73,16 +91,17 @@ const App = () => {
         <Switch>
           <Route exact path='/' >
             <HomeScreen
+              loadMoreProduct={loadMoreProduct}
               cartItems={cartItems}
               onAdd={onAdd}
               products={dataProduct}
               loadMore={loadMore}
-              // addToCart={addToCart}
               setLoadMore={setLoadMore}
             />
           </Route>
           <Route exact path='/cart'>
             <Cart
+              TotalPrice={TotalPrice}
               onRemove={onRemove}
               onAdd={onAdd}
               cart={cartItems} />

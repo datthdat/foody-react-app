@@ -38,8 +38,8 @@ const Product = (props) => {
                     }
                 </div>
                 <div className="mt-4 mb-2 flex justify-between pl-4 pr-2">
-                    <button className="block text-xl font-semibold text-gray-700 cursor-auto">
-                        ${product.price}
+                    <button className="block text-xl font-semibold text-yellow-500 cursor-auto">
+                        ₫{product.price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
                     </button>
                     <button
                         onClick={() => onAdd(product)}
