@@ -176,10 +176,14 @@
 import { Button } from 'antd'
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useState } from 'react/cjs/react.development';
 
 const Cart = (props) => {
-    const { cart, onAdd, onRemove, TotalPrice } = props;
-    console.log("cartPrice", TotalPrice)
+    const { cart, onAdd, onRemove, TotalPrice, ListCodeCoupon } = props;
+    const [coupon, setCoupon] = useState('')
+    const CheckCoupon = ListCodeCoupon.includes(coupon)
+    console.log("CheckCoupon", CheckCoupon)
+    // console.log("cartPrice", TotalPrice)
     return (
         <div className="container mx-auto bg-gray-200">
             <div className="flex shadow-2xl my-5">
@@ -226,9 +230,11 @@ const Cart = (props) => {
                                             icon={<i className="fas fa-minus" />}
                                         />
                                     </div>
-                                    <span className="text-center w-1/5 font-semibold text-sm">{item.price}</span>
                                     <span className="text-center w-1/5 font-semibold text-sm">
-                                        {Math.round(item.qty * item.price)}
+                                        ₫{item.price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+                                    </span>
+                                    <span className="text-center w-1/5 font-semibold text-sm">
+                                        ₫{Math.round(item.qty * item.price).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
                                     </span>
                                 </div>
                             )
@@ -248,17 +254,21 @@ const Cart = (props) => {
                     <h1 className="font-semibold text-2xl border-b pb-8">Order Summary</h1>
                     <div className="flex justify-between mt-10 mb-5">
                         <span className="font-semibold text-sm uppercase">Items {cart.length} </span>
-                        <span className="font-semibold text-sm"> {TotalPrice} </span>
+                        <span className="font-semibold text-sm">
+                            ₫{TotalPrice - coupon.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+                        </span>
                     </div>
                     <div>
                         <label className="font-medium inline-block mb-3 text-sm uppercase">Shipping</label>
-                        <select className="block p-2 text-gray-600 w-full text-sm">
-                            <option>Standard shipping - $10.00</option>
+                        <select disabled className="block p-2 text-gray-600 w-full text-sm">
+                            <option disabled>Standard shipping - 20.000</option>
                         </select>
                     </div>
                     <div className="py-10">
                         <label htmlFor="promo" className="font-semibold inline-block mb-3 text-sm uppercase">Promo Code</label>
-                        <input type="text" id="promo" placeholder="Enter your code" className="p-2 text-sm w-full" />
+                        <input type="text" id="promo" placeholder="Enter your code" className="p-2 text-sm w-full"
+                            onChange={(e) => setCoupon(e.target.value)}
+                        />
                     </div>
                     <button className="bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase">Apply</button>
                     <div className="border-t mt-8">

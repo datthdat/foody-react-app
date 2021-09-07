@@ -52,7 +52,7 @@ const App = () => {
       setCartItems([...cartItems, { ...product, qty: 1 }])
     }
   }
-  console.log("onAdd", cartItems);
+  // console.log("onAdd", cartItems);
 
   const onRemove = (product) => {
     const exits = cartItems.find((item) => item.id === product.id);
@@ -61,17 +61,19 @@ const App = () => {
     } else {
       setCartItems(cartItems.map(item => (item).id === product.id ? { ...exits, qty: exits.qty - 1 } : item))
     }
-    console.log("exits.qty", exits.qty);
+    // console.log("exits.qty", exits.qty);
   }
-  console.log("onRemove", cartItems);
+  // console.log("onRemove", cartItems);
 
   // const cartPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0)
+  const ListCodeCoupon = ['sophie', 'george', 'waldo', 'stephen', 'henry'];
   const total = 0;
   const totalPrice = (a, c) => {
     return a + c.price * c.qty
   }
   const TotalPrice = cartItems.reduce(totalPrice, total)
   // console.log("TotalPrice", TotalPrice)
+
 
   useEffect(() => {
     {
@@ -101,6 +103,7 @@ const App = () => {
           </Route>
           <Route exact path='/cart'>
             <Cart
+              ListCodeCoupon={ListCodeCoupon}
               TotalPrice={TotalPrice}
               onRemove={onRemove}
               onAdd={onAdd}

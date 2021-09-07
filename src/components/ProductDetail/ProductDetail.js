@@ -106,7 +106,9 @@ const ProductDetail = (props) => {
                             </div>
                         </div>
                         <div className="flex">
-                            <span className="title-font font-medium text-2xl text-gray-900">${result.price} </span>
+                            <span className="title-font font-medium text-2xl text-gray-900">
+                                ₫{result.price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+                            </span>
                             <button
                                 onClick={() => onAdd(result)}
                                 className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
