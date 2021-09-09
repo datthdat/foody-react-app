@@ -1,8 +1,15 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import ReactStars from 'react-rating-stars-component';
+// import Rating from '../../Rate/Rating'
 const Product = (props) => {
     const { product, onAdd } = props
     const [imageProduct, setImageProduct] = useState('')
+    const rate = {
+        size: 20,
+        isHalf: true,
+        value: product.rate,
+    };
     return (
         <div className="bg-whit w-72 bg-white rounded-xl shadow-lg hover:shadow-xl transform duration-500 mx-auto md:mx-0 py-4 px-4">
             <Link
@@ -17,6 +24,7 @@ const Product = (props) => {
             <div className="mt-4">
                 <h1 className="text-2xl font-bold text-gray-700">
                     {product.name}
+                    <ReactStars {...rate} />
                 </h1>
                 <p className="text-sm mt-2 text-gray-700">
                     {product.dsc}
@@ -37,18 +45,22 @@ const Product = (props) => {
                         })
                     }
                 </div>
+
                 <div className="mt-4 mb-2 flex justify-between pl-4 pr-2">
                     <button className="block text-xl font-semibold text-yellow-500 cursor-auto">
                         ₫{product.price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
                     </button>
-                    <button
-                        onClick={() => onAdd(product)}
+
+                    <Link
+                        to={`/products/${product.id}`}
+                        // onClick={() => onAdd(product)}
                         className="text-lg block font-semibold py-2 px-6 text-white hover:text-green-100 bg-green-400 rounded-lg shadow hover:shadow-md transition duration-300">
-                        <i className="fas fa-cart-plus"></i>
-                    </button>
+                        <i className="fas fa-eye"></i>
+                    </Link>
                 </div>
+
             </div>
-        </div>
+        </div >
     )
 }
 export default Product
