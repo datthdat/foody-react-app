@@ -8,7 +8,7 @@ const ProductsScreen = (props) => {
     const { setLoadMore, products, loadMore, onAdd } = props
     const PageProduct = window.location.pathname
     const [search, setSearch] = useState('')
-    const filterData = products.filter(items => items.name.toLowerCase().includes(search))
+    const filterData = products.filter(items => items.name.toLowerCase().includes(search.toLocaleLowerCase()))
     return (
         <div className="flex justify-center container mx-auto px-10 bg-gray-300">
             <div className="w-1/5" >
@@ -58,6 +58,7 @@ const ProductsScreen = (props) => {
                     </div>
                 </aside>
             </div>
+
             <div className="w-4/5">
                 <div className="flex justify-center">
                     <Products

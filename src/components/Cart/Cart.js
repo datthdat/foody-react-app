@@ -173,17 +173,49 @@
 
 // export default Cart
 
-import { Button } from 'antd'
+import { Button, Input } from 'antd'
 import React, { useEffect } from 'react'
+import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom'
 import { useState } from 'react/cjs/react.development';
 
 const Cart = (props) => {
     const { cart, onAdd, onRemove, TotalPrice, ListCodeCoupon } = props;
-    const [coupon, setCoupon] = useState('')
-    const CheckCoupon = ListCodeCoupon.includes(coupon)
-    console.log("CheckCoupon", CheckCoupon)
-    // console.log("cartPrice", TotalPrice)
+    // const [coupon, setCoupon] = useState('')
+    const { register, handleSubmit } = useForm();
+    const [showTextCoupon, setShowTextCoupon] = useState(false)
+    const [result, setResult] = useState("")
+    // const CheckCoupon = ListCodeCoupon.includes(result)
+
+    const onSubmit = (data) => {
+        setResult(data)
+    }
+
+    useEffect(() => {
+        if (ListCodeCoupon.includes(Object.values(result).toString())) {
+            setShowTextCoupon(true);
+        } else {
+            setShowTextCoupon(false);
+        }
+    }, [result])
+
+    const ShowCoupon = () => {
+        return (
+            <>
+                {
+                    showTextCoupon ? (
+                        <div>
+                            <p className={"transtion duration-300 text-xs text-red-500 py-2 px-2"} > Successfully!</p>
+                        </div>
+                    ) : (
+                        <div>
+                            <p className={"transtion duration-300 text-xs text-red-500 py-2 px-2"}>No Successfully!</p>
+                        </div>
+                    )
+                }
+            </>
+        )
+    }
     return (
         <div className="container mx-auto bg-gray-200">
             <div className="flex shadow-2xl my-5">
@@ -255,7 +287,50 @@ const Cart = (props) => {
                     <div className="flex justify-between mt-10 mb-5">
                         <span className="font-semibold text-sm uppercase">Items {cart.length} </span>
                         <span className="font-semibold text-sm">
-                            ₫{TotalPrice - coupon.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+                            {/* ₫{TotalPrice - coupon.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} */}
+                            {/* ₫{(TotalPrice - 20000).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} */}
+                            ₫{TotalPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+                            {/* {
+                                showTextCoupon === true ? (
+                                    <>
+                                        ₫{(TotalPrice - 20000).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+                                    </>
+                                ) : (
+                                    <>
+                                        ₫{(TotalPrice).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+                                    </>
+                                )
+                            } */}
+                        </span>
+                    </div>
+
+                    {showTextCoupon ?
+                        (
+                            <div className="flex justify-between">
+                                <label className="font-medium inline-block mb-3 text-sm uppercase">Discount</label>
+                                <label className="font-medium inline-block mb-3 text-sm">
+                                    - đ20,000
+                                </label>
+                            </div>
+                        ) : null
+                    }
+
+                    <div className="flex justify-between mt-10 mb-5">
+                        <span className="font-semibold text-sm uppercase">Total </span>
+                        <span className="font-semibold text-sm">
+                            {/* ₫{TotalPrice - coupon.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} */}
+                            {/* ₫{(TotalPrice - 20000).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} */}
+                            {
+                                showTextCoupon === true ? (
+                                    <>
+                                        ₫{(TotalPrice - 20000).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+                                    </>
+                                ) : (
+                                    <>
+                                        ₫{(TotalPrice).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+                                    </>
+                                )
+                            }
                         </span>
                     </div>
                     <div>
@@ -265,12 +340,25 @@ const Cart = (props) => {
                         </select>
                     </div>
                     <div className="py-10">
-                        <label htmlFor="promo" className="font-semibold inline-block mb-3 text-sm uppercase">Promo Code</label>
-                        <input type="text" id="promo" placeholder="Enter your code" className="p-2 text-sm w-full"
-                            onChange={(e) => setCoupon(e.target.value)}
-                        />
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <label htmlFor="promo" className="font-semibold inline-block mb-3 text-sm uppercase">Promo Code</label>
+                            <div className="flex justify-center space-x-1">
+                                <input type="text" id="promo" placeholder="Enter your code" className="p-2 text-sm w-full"
+                                    // name={(e) => setCoupon(e.target.value)}
+                                    {...register("coupon")}
+                                />
+                                <button className="bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase">Apply</button>
+                            </div>
+                        </form>
+
+                        {
+                            result ? (
+                                <ShowCoupon />
+                            ) : null
+                        }
+
                     </div>
-                    <button className="bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase">Apply</button>
+
                     <div className="border-t mt-8">
                         <div className="flex font-semibold justify-between py-6 text-sm uppercase">
                             <span>Total cost</span>
@@ -280,7 +368,7 @@ const Cart = (props) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

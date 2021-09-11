@@ -66,13 +66,13 @@ const App = () => {
   // console.log("onRemove", cartItems);
 
   // const cartPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0)
-  const ListCodeCoupon = ['sophie', 'george', 'waldo', 'stephen', 'henry'];
+  const ListCodeCoupon = ['thanhdat', 'huylam', 'hoanghung', 'duyennguyen', 'vongocthanhdat123'];
   const total = 0;
   const totalPrice = (a, c) => {
     return a + c.price * c.qty
   }
   const TotalPrice = cartItems.reduce(totalPrice, total)
-  // console.log("TotalPrice", TotalPrice)
+  console.log("TotalPrice", TotalPrice)
 
 
   useEffect(() => {
