@@ -5,7 +5,7 @@ import {
   Route,
 } from "react-router-dom";
 import axios from 'axios'
-import { Navbar, Footer, Cart, ProductDetail, HomeScreen, ProductsScreen } from './components'
+import { Navbar, Footer, Cart, ProductDetail, HomeScreen, ProductsScreen, SearchVoice } from './components'
 import "antd/dist/antd.css";
 import data from './data.json'
 const App = () => {

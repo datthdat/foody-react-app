@@ -7,5 +7,6 @@ export { default as HomeScreen } from './Screens/HomeScreen';
 export { default as Slider } from './Slider/Slider';
 export { default as Content } from './Content/Content';
 export { default as ProductsScreen } from './Screens/ProductsScreen';
+export { default as SearchVoice } from './Comp/SearchVoice';
 export { default as Rate } from './Rate/Rating';
 
