@@ -1,11 +1,11 @@
 import React from 'react'
 
-const AddressForm = () => {
+const Submit = () => {
     return (
         <div>
-            
+            Submit
         </div>
     )
 }
 
-export default AddressForm
+export default Submit

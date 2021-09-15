@@ -9,4 +9,5 @@ export { default as Content } from './Content/Content';
 export { default as ProductsScreen } from './Screens/ProductsScreen';
 export { default as SearchVoice } from './Comp/SearchVoice';
 export { default as Rate } from './Rate/Rating';
+export { default as MultiStepForm } from './CheckoutForm/MultiStepForm';
 
