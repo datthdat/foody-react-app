@@ -8,14 +8,21 @@ import Submit from './Steps/Submit'
 
 const MultiStepForm = () => {
     const defaultData = {
-        firstName: "Vo Ngoc",
-        lastName: "Thanh Dat",
-        age: "22",
-        email: "example@gmail.com",
-        street: "h09/14 k569 Tran Cao Van",
-        city: "Da Nang",
-        country: "Viet Nam",
-        zipCode: "550000"
+        firstName: "",
+        lastName: "",
+        age: "",
+        set: "",
+
+
+        country: "",
+        city: "",
+        address: "",
+        zip: "",
+
+        email: "",
+        phone: "",
+        subject: "",
+        message: ""
     }
 
     const steps = [
