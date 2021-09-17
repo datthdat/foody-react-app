@@ -175,6 +175,7 @@
 
 import { Button, Input } from 'antd'
 import React, { useEffect } from 'react'
+import { Helmet } from 'react-helmet';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom'
 import { useState } from 'react/cjs/react.development';
@@ -217,80 +218,86 @@ const Cart = (props) => {
         )
     }
     return (
-        <div className="container mx-auto bg-gray-200">
-            <div className="flex shadow-2xl my-5">
-                <div className="w-3/4 bg-white px-10 py-5">
-                    {
-                        cart.length > 0 ? (
-                            <div className="flex mt-10 mb-5">
-                                <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">Product Details</h3>
-                                <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Quantity</h3>
-                                <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Price</h3>
-                                <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Total</h3>
-                            </div>
-                        ) : null
-                    }
-
-                    {
-                        cart?.map((item, index) => {
-                            return (
-                                <div key={index} className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5 cursor-pointer">
-                                    <div className="flex w-2/5">
-                                        <div className="w-20">
-                                            <Link to={`products/${item?.id}`}>
-                                                <img src={item?.img} className="w-20 rounded" alt={item.name} />
-                                            </Link>
-                                        </div>
-                                        <div className="flex flex-col justify-between ml-4 flex-grow">
-                                            <span className="font-bold text-sm">{item.name} </span>
-                                            <span className="text-red-500 text-xs">{item.name} </span>
-                                            <a href="#" className="font-semibold hover:text-red-500 text-gray-500 text-xs">Remove</a>
-                                        </div>
-                                    </div>
-                                    <div className="flex justify-center w-1/5">
-                                        <Button
-                                            onClick={() => onAdd(item)}
-                                            type="link"
-                                            style={{ color: 'black' }}
-                                            icon={<i className="fas fa-plus" />}
-                                        />
-                                        <input className="mx-2 border text-center w-8" value={item.qty} />
-                                        <Button
-                                            type="link"
-                                            onClick={() => onRemove(item)}
-                                            style={{ color: 'black' }}
-                                            icon={<i className="fas fa-minus" />}
-                                        />
-                                    </div>
-                                    <span className="text-center w-1/5 font-semibold text-sm">
-                                        ₫{item.price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
-                                    </span>
-                                    <span className="text-center w-1/5 font-semibold text-sm">
-                                        ₫{Math.round(item.qty * item.price).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
-                                    </span>
+        <>
+            <Helmet>
+                <title>
+                    Cart
+                </title>
+            </Helmet>
+            <div className="container mx-auto bg-gray-200">
+                <div className="flex shadow-2xl my-5">
+                    <div className="w-3/4 bg-white px-10 py-5">
+                        {
+                            cart.length > 0 ? (
+                                <div className="flex mt-10 mb-5">
+                                    <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">Product Details</h3>
+                                    <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Quantity</h3>
+                                    <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Price</h3>
+                                    <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Total</h3>
                                 </div>
-                            )
-                        })
-                    }
-                    <Link to='/' className="flex font-semibold text-indigo-600 text-sm mt-10">
-                        <Button
-                            type="link"
-                            icon={
-                                <i className="fas fa-angle-double-left px-2" />
-                            } >
-                            Continue shopping
-                        </Button>
-                    </Link>
-                </div>
-                <div id="summary" className="w-1/4 px-8 py-10">
-                    <h1 className="font-semibold text-2xl border-b pb-8">Order Summary</h1>
-                    <div className="flex justify-between mt-10 mb-5">
-                        <span className="font-semibold text-sm uppercase">Items {cart.length} </span>
-                        <span className="font-semibold text-sm">
-                            {/* ₫{TotalPrice - coupon.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} */}
-                            {/* ₫{(TotalPrice - 20000).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} */}
-                            ₫{TotalPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
-                            {/* {
+                            ) : null
+                        }
+
+                        {
+                            cart?.map((item, index) => {
+                                return (
+                                    <div key={index} className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5 cursor-pointer">
+                                        <div className="flex w-2/5">
+                                            <div className="w-20">
+                                                <Link to={`products/${item?.id}`}>
+                                                    <img src={item?.img} className="w-20 rounded" alt={item.name} />
+                                                </Link>
+                                            </div>
+                                            <div className="flex flex-col justify-between ml-4 flex-grow">
+                                                <span className="font-bold text-sm">{item.name} </span>
+                                                <span className="text-red-500 text-xs">{item.name} </span>
+                                                <a href="#" className="font-semibold hover:text-red-500 text-gray-500 text-xs">Remove</a>
+                                            </div>
+                                        </div>
+                                        <div className="flex justify-center w-1/5">
+                                            <Button
+                                                onClick={() => onAdd(item)}
+                                                type="link"
+                                                style={{ color: 'black' }}
+                                                icon={<i className="fas fa-plus" />}
+                                            />
+                                            <input className="mx-2 border text-center w-8" value={item.qty} />
+                                            <Button
+                                                type="link"
+                                                onClick={() => onRemove(item)}
+                                                style={{ color: 'black' }}
+                                                icon={<i className="fas fa-minus" />}
+                                            />
+                                        </div>
+                                        <span className="text-center w-1/5 font-semibold text-sm">
+                                            ₫{item.price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+                                        </span>
+                                        <span className="text-center w-1/5 font-semibold text-sm">
+                                            ₫{Math.round(item.qty * item.price).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+                                        </span>
+                                    </div>
+                                )
+                            })
+                        }
+                        <Link to='/' className="flex font-semibold text-indigo-600 text-sm mt-10">
+                            <Button
+                                type="link"
+                                icon={
+                                    <i className="fas fa-angle-double-left px-2" />
+                                } >
+                                Continue shopping
+                            </Button>
+                        </Link>
+                    </div>
+                    <div id="summary" className="w-1/4 px-8 py-10">
+                        <h1 className="font-semibold text-2xl border-b pb-8">Order Summary</h1>
+                        <div className="flex justify-between mt-10 mb-5">
+                            <span className="font-semibold text-sm uppercase">Items {cart.length} </span>
+                            <span className="font-semibold text-sm">
+                                {/* ₫{TotalPrice - coupon.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} */}
+                                {/* ₫{(TotalPrice - 20000).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} */}
+                                ₫{TotalPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+                                {/* {
                                 showTextCoupon === true ? (
                                     <>
                                         ₫{(TotalPrice - 20000).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
@@ -301,21 +308,21 @@ const Cart = (props) => {
                                     </>
                                 )
                             } */}
-                        </span>
-                    </div>
+                            </span>
+                        </div>
 
-                    {showTextCoupon ?
-                        (
-                            <div className="flex justify-between">
-                                <label className="font-medium inline-block mb-3 text-sm uppercase">Discount</label>
-                                <label className="font-medium inline-block mb-3 text-sm">
-                                    - đ20,000
-                                </label>
-                            </div>
-                        ) : null
-                    }
+                        {showTextCoupon ?
+                            (
+                                <div className="flex justify-between">
+                                    <label className="font-medium inline-block mb-3 text-sm uppercase">Discount</label>
+                                    <label className="font-medium inline-block mb-3 text-sm">
+                                        - đ20,000
+                                    </label>
+                                </div>
+                            ) : null
+                        }
 
-                    {/* <div className="flex justify-between mt-10 mb-5">
+                        {/* <div className="flex justify-between mt-10 mb-5">
                         <span className="font-semibold text-sm uppercase">Total </span>
                         <span className="font-semibold text-sm">
                             {
@@ -331,56 +338,57 @@ const Cart = (props) => {
                             }
                         </span>
                     </div> */}
-                    <div>
-                        <label className="font-medium inline-block mb-3 text-sm uppercase">Shipping</label>
-                        <select className="block p-2 text-gray-600 w-full text-sm">
-                            <option disabled>Direct delivery</option>
-                        </select>
-                    </div>
-                    <div className="py-10">
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                            <label htmlFor="promo" className="font-semibold inline-block mb-3 text-sm uppercase">Promo Code</label>
-                            <div className="flex justify-center space-x-1">
-                                <input type="text" id="promo" placeholder="Enter your code" className="p-2 text-sm w-full"
-                                    // name={(e) => setCoupon(e.target.value)}
-                                    {...register("coupon")}
-                                />
-                                <button className="bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase">Apply</button>
-                            </div>
-                        </form>
-
-                        {
-                            result ? (
-                                <ShowCoupon />
-                            ) : null
-                        }
-
-                    </div>
-
-                    <div className="border-t mt-8">
-                        <div className="flex font-semibold justify-between py-6 text-sm uppercase">
-                            <span>Total cost</span>
-                            <span>
-                                {
-                                    showTextCoupon === true ? (
-                                        <>
-                                            ₫{(TotalPrice - 20000).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
-                                        </>
-                                    ) : (
-                                        <>
-                                            ₫{(TotalPrice).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
-                                        </>
-                                    )
-                                }
-                            </span>
+                        <div>
+                            <label className="font-medium inline-block mb-3 text-sm uppercase">Shipping</label>
+                            <select className="block p-2 text-gray-600 w-full text-sm">
+                                <option disabled>Direct delivery</option>
+                            </select>
                         </div>
-                        <Link to='/check-out'>
-                            <div className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full text-center">Checkout</div>
-                        </Link>
+                        <div className="py-10">
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                                <label htmlFor="promo" className="font-semibold inline-block mb-3 text-sm uppercase">Promo Code</label>
+                                <div className="flex justify-center space-x-1">
+                                    <input type="text" id="promo" placeholder="Enter your code" className="p-2 text-sm w-full"
+                                        // name={(e) => setCoupon(e.target.value)}
+                                        {...register("coupon")}
+                                    />
+                                    <button className="bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase">Apply</button>
+                                </div>
+                            </form>
+
+                            {
+                                result ? (
+                                    <ShowCoupon />
+                                ) : null
+                            }
+
+                        </div>
+
+                        <div className="border-t mt-8">
+                            <div className="flex font-semibold justify-between py-6 text-sm uppercase">
+                                <span>Total cost</span>
+                                <span>
+                                    {
+                                        showTextCoupon === true ? (
+                                            <>
+                                                ₫{(TotalPrice - 20000).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+                                            </>
+                                        ) : (
+                                            <>
+                                                ₫{(TotalPrice).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+                                            </>
+                                        )
+                                    }
+                                </span>
+                            </div>
+                            <Link to='/check-out'>
+                                <div className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full text-center">Checkout</div>
+                            </Link>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div >
+            </div >
+        </>
     )
 }
 

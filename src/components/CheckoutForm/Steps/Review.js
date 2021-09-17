@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, Collapse } from 'antd';
 import { useEffect, useState } from 'react/cjs/react.development';
+import { Helmet } from 'react-helmet';
 const Review = ({ formData, navigation }) => {
     const { go } = navigation
     const { Panel } = Collapse;
@@ -24,9 +25,9 @@ const Review = ({ formData, navigation }) => {
     const RenderAction = ({ sumary, detail, go }) => {
         return (
             <div>
-                <div className="text-xl">
+                {/* <div className="text-xl">
                     {sumary}
-                </div>
+                </div> */}
                 <div>
                     {detail.map((data, index) => {
                         const objKey = Object.keys(data)[0];
@@ -40,7 +41,7 @@ const Review = ({ formData, navigation }) => {
 
                 </div>
                 <div className="flex justify-end">
-                    <Button onClick={() => { go(`${sumary.toLowerCase()}`) }} type="primary" icon={
+                    <Button onClick={() => go(`${sumary?.toLowerCase()}`)} type="primary" icon={
                         <i className="fas fa-edit text-2xl"></i>
                     } />
                 </div>
@@ -50,6 +51,11 @@ const Review = ({ formData, navigation }) => {
 
     return (
         <div>
+            <Helmet>
+                <title>
+                    Your Information
+                </title>
+            </Helmet>
             <div className="flex justify-center">
                 <div className="py-5 w-screen px-20 ">
                     <div className="flex justify-center">
@@ -60,6 +66,7 @@ const Review = ({ formData, navigation }) => {
                     <Collapse defaultActiveKey={["1", "2", "3"]} >
                         <Panel header={"Names"} key="1">
                             <RenderAction
+                                sumary="Names"
                                 go={go}
                                 detail={[
                                     { 'First Name': firstName },
@@ -70,6 +77,7 @@ const Review = ({ formData, navigation }) => {
                         </Panel>
                         <Panel header={"Address"} key="2">
                             <RenderAction
+                                sumary="Address"
                                 go={go}
                                 detail={[
                                     { 'Country': country },
@@ -81,6 +89,7 @@ const Review = ({ formData, navigation }) => {
                         </Panel>
                         <Panel header={"Contact"} key="3">
                             <RenderAction
+                                sumary="Contact"
                                 go={go}
                                 detail={[
                                     { 'Email': email },

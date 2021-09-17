@@ -1,11 +1,17 @@
 import { Button } from 'antd'
 import React from 'react'
+import { Helmet } from 'react-helmet';
 
 const Address = ({ formData, setForm, navigation }) => {
     const { country, city, address, zip } = formData
     console.log("formData", formData);
     return (
         <>
+            <Helmet>
+                <title>
+                    Address
+                </title>
+            </Helmet>
             <div className="flex justify-center py-5">
                 <div className=" p-4 bg-gray-200 leading-loose">
                     <form className="max-w-lg m-4 p-4 bg-white rounded shadow-xl">

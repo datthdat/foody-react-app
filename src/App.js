@@ -8,6 +8,7 @@ import axios from 'axios'
 import { Navbar, Footer, Cart, ProductDetail, HomeScreen, ProductsScreen, SearchVoice, MultiStepForm } from './components'
 import "antd/dist/antd.css";
 import data from './data.json'
+import { Helmet } from "react-helmet";
 const App = () => {
   // const [data, setData] = useState('')
   // const [error, setError] = useState(null);
@@ -72,23 +73,27 @@ const App = () => {
     return a + c.price * c.qty
   }
   const TotalPrice = cartItems.reduce(totalPrice, total)
-  console.log("TotalPrice", TotalPrice)
 
+  // const [titlePage, setTitlePage] = useState('/')
 
-  useEffect(() => {
-    {
-      cartItems.length > 0 ? (
-        (document.title = `${cartItems.length} product`)
-      ) : (
-        (document.title = `Dami-Vie`)
-      )
-    }
-  }, [cartItems])
+  // console.log("titlePage", titlePage);
 
+  // useEffect(() => {
+  //   {
+  //     cartItems.length > 0 ? (
+  //       (document.title = `${cartItems.length} product`)
+  //     ) : (
+  //       (document.title = `Dami-Vie`)
+  //     )
+  //   }
+  // }, [cartItems])
 
   return (
     <Router>
       <div>
+        <Helmet>
+          <title>Home Page</title>
+        </Helmet>
         <Navbar cart={cartItems} />
         <Switch>
           <Route exact path='/' >
