@@ -57,7 +57,7 @@ const MultiStepForm = () => {
     console.log("steps", step);
 
     return (
-        <div className="flex justify-center py-10 px-10 bg-blue-500">
+        <div>
 
         </div>
     )

@@ -7,7 +7,7 @@ const Names = ({ formData, setForm, navigation }) => {
     console.log("formData", navigation);
     return (
         <>
-            <div className="flex justify-center py-5 w-screen">
+            <div className="flex justify-center py-5 ">
                 <div className=" p-4 bg-gray-200 leading-loose">
                     <form className="max-w-lg m-4 p-4 bg-white rounded shadow-xl">
                         <p className="text-gray-800 font-medium">Information</p>

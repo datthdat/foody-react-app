@@ -12,7 +12,7 @@ const Footer = () => {
     const submitHandler = (e) => {
         e.preventDefault()
         alert("Thanks for question")
-        console.log("data")
+        console.log(user + email + message)
         setMessage("ok")
 
         // if (user === '' || email === '' || message === '') {
@@ -81,6 +81,7 @@ const Footer = () => {
                                     </div>
                                     <div name="email" >
                                         <input
+                                            type="email"
                                             className="w-full border py-2 rounded p-3"
                                             placeholder="Email"
                                             onChange={(e) => setEmail(e.target.value)}
